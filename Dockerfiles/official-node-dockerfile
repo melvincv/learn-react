@@ -1,0 +1,23 @@
+# syntax=docker/dockerfile:1
+
+# While optional, this directive instructs the Docker builder what syntax to use when parsing the Dockerfile, and allows older Docker versions with BuildKit enabled to upgrade the parser before starting the build. Parser directives must appear before any other comment, whitespace, or Dockerfile instruction in your Dockerfile, and should be the first line in Dockerfiles.
+# Next, we need to add a line in our Dockerfile that tells Docker what base image we would like to use for our application.
+FROM node:12.18.1
+
+# One of the simplest things you can do to improve performance is to set NODE_ENV to production.
+ENV NODE_ENV=production
+
+WORKDIR /app
+
+# You can specify multiple src resources seperated by a comma. 
+# Note that, rather than copying the entire working directory, we are only copying the package.json file. This allows us to take advantage of cached Docker layers.
+COPY ["package.json", "package-lock.json*", "./"]
+
+# This works exactly the same as if we were running npm install locally on our machine, but this time these Node modules will be installed into the node_modules directory inside our image.
+RUN npm install --production
+
+# next thing we need to do is to add our source code into the image.
+COPY . .
+
+# tell Docker what command we want to run when our image is run inside of a container.
+CMD [ "node", "server.js" ]
