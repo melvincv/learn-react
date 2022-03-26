@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # Build stage
-FROM node:14-alpine AS builder
+FROM node:alpine AS builder
 ENV NODE_ENV production
 WORKDIR /app
 COPY ["package.json", "package-lock.json*", "./"]
@@ -8,7 +8,7 @@ RUN npm install --production
 COPY . .
 RUN npm run build
 
-FROM nginx:1.21.0-alpine AS production
+FROM nginx:alpine AS production
 ENV NODE_ENV production
 COPY --from=builder /app/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf

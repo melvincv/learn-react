@@ -17,4 +17,4 @@ docker build -t samplereactapp .
 
 ### Docker Run
 
-docker run --name reactapp -d -p 3001:3000 samplereactapp
+docker run --name reactapp -d -p 80:80 samplereactapp
