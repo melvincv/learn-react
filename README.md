@@ -5,7 +5,7 @@ Learn React (Official Site)
 
 npx create-react-app my-app
 
-## Dockerize it
+## Docker
 
 ### Create a Dockerfile
 
@@ -18,3 +18,7 @@ docker build -t samplereactapp .
 ### Docker Run
 
 docker run --name reactapp -d -p 80:80 samplereactapp
+
+## Kubernetes
+
+kubectl apply -f kubernetes/app.yaml
